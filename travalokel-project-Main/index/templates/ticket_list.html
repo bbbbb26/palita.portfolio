@@ -1,0 +1,84 @@
+{% extends 'components/site_base.html' %}
+{% load static %}
+{% block title %}Flight list{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block content %}
+
+<body class="bg" >
+  {% include 'components/site_header.html' %}  <br>
+  <div class="mx-auto text-bg-light p-3 shadow p-3 mb-5 bg-body rounded" style="width: 1024px;">
+    {% for lineitem in flights %}
+
+    <div id="info-flight-{{ forloop.counter }}"></div>
+    <div class="row justify-content-space-between p-1 rounded" style="border:2px solid gold;">
+      <div class="col-3" id="headline"> {{ lineitem.airline }} <br><span>{{lineitem.flight_id__seat_class}} Class</span></div>
+      <div class="col-2" align="center">
+        <p class="fs-6"><date-timeformatchange format=hh/mm/ss >{{ lineitem.departure_time|date:"H:i" }}</date-timeformatchange></p>
+        <p class="fs-6"><time>{{ paths.departure }}</time></p>
+      </div>
+      <div class="col-2" align="center">
+        {{ lineitem.duration|date:"H:i:s" }} <br>
+        <span id="boot-icon" class="bi bi-three-dots" style="font-size:2rem;"></span>
+      </div>
+      <div class="col-2" align="center">
+        <p class="fs-6">{{ lineitem.arrival_time|date:"H:i" }}</p>
+        <p class="fs-6">{{ paths.destination }}</p>
+      </div>
+      <div class="col-3 justify-content-center" align="center">
+          <span class="fs-4" style="color:rgb(255, 94, 31) ;" id="price">{{ lineitem.flight_id__price }}</span><span class="fs-3"> ฿</span>
+      </div>
+      <div>
+        
+          {% if user.is_authenticated %}
+          <form action="/flight/booking" method="get">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+          data-bs-target="#flightinfo{{ forloop.counter }}" aria-expanded="false"
+          aria-controls="collapseExample">รายละเอียดเที่ยวบิน</button>
+            {% csrf_token %}
+            <input type="hidden" name="flight_ID" id="txt_flightID" value="{{lineitem.flight_id}}">
+            <button type="submit" class="btn btn-primary" value="{{lineitem.flight_id}}">เลือก</button>
+            
+          </form>
+          {% else %}
+        <h6>กรุณา register และ login ก่อนทำการจอง</h6>
+          {% endif %}
+      </div>
+    </div>
+    <div class="collapse" id="flightinfo{{ forloop.counter }}">
+      <div class="card card-body">
+        <div class="row">
+          <div class="col-2"> {{ lineitem.departure_time|date:"H:i" }}<br>{{ lineitem.departure_date }}<br><br>
+            <i class="bi bi-airplane"></i><time>{{ lineitem.duration|date:"H:i:s" }}</time><br><br>{{ lineitem.arrival_time|date:"H:i" }}<br>{{ lineitem.arrival_date }}</div>
+          <div class="col-1"></span>
+            <div class="vl"><span class="dot1"></span><span class="dot2"></span></div>
+          </div>
+          <div class="col-9">{{ paths.departure }}{{ cities.city_name }} <br>{{ cities.airport }}<br><br><br><br> {{ paths.destination }}{{ cities2.city_name }}<br>{{ cities2.airport }}</div>
+        </div>
+      </div>
+    </div><br>
+    {% endfor %}
+  </div>
+  <div class="text-center">
+    <p style="font-size: 100%;">**กดปุ่มวิธีการใช้งานเพื่อดูขั้นตอนการดูและเลือกเที่ยวบิน**</p>
+    <!-- Button to launch a modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">วิธีการใช้งาน</button>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">         
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- Add image inside the body of modal -->
+          <div class="modal-body text-center">
+            <img id="image" src= "{% static "/img/img02.png" %}" alt="Click on button" style="width:120%;max-width:1000px" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+{% endblock %}

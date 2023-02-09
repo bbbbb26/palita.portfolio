@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Airline Ticket</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ticket.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+
+	<div class="ticket basic">
+		<p>Admit One</p>
+	</div>
+
+	<div class="ticket airline">
+		<div class="top">
+			<h1>boarding pass</h1>
+			<div class="big">
+				<p class="from">{{ flight_detail.path_id__departure }}</p>
+				<p class="to"><i class="fas fa-arrow-right"></i> {{ flight_detail.path_id__destination }} </p>
+			</div>
+			<div class="top--side">
+				<i class="fas fa-plane"></i>
+				<p>{{ city_from.city_name }}</p>
+				<p>{{ city_to.city_name }}</p>
+			</div>
+		</div>
+		<div class="bottom">
+			<div class="column">
+				<div class="row row-1">
+					<p><span>Flight</span>{{ ticket_detail.flight_id }}</p>
+					<p class="row--right"><span>Passenger class</span>{{ ticket_detail.seat_class }}</p>
+				</div>
+				<div class="row row-2">
+					<p><span>Ticket ID</span>{{ ticket_detail.ticket_id }}</p>
+					<p class="row--center"><span>Departs</span>{{ flight_detail.departure_time }}</p>
+					<p class="row--right"><span>Arrives</span>{{ flight_detail.arrival_time }}</p>
+				</div>
+				<div class="row row-3">
+					<p><span>Passenger</span>{{ ticket_detail.username }}</p>
+					<p class="row--center"></p>
+					<p class="row--right"><span>Airline</span>{{ flight_detail.airline }}</p>
+				</div>
+			</div>
+			<div class="bar--code"></div>
+		</div>
+	</div>
+
+</body>
+</html>

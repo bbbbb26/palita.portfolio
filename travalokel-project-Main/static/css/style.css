@@ -1,0 +1,100 @@
+/* bai-jamjuree-regular - thai_latin */
+@font-face {
+    font-family: "Bai Jamjuree";
+    font-style: normal;
+    font-weight: 400;
+    src: local(""),
+        url("../fonts/bai-jamjuree-v11-thai_latin-regular.woff2") format("woff2"),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url("../fonts/bai-jamjuree-v11-thai_latin-regular.woff") format("woff");
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* bai-jamjuree-600 - thai_latin */
+* {
+    font-family: "Bai Jamjuree", sans-serif;
+}
+
+.bg {
+    background-image: url(/static/img/bg-home.png);
+    background-size: cover;
+    background-attachment: fixed;
+    isolation: isolate;
+    background-repeat: no-repeat;
+}
+
+.bg::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    background-color: #bce6ff;
+    opacity: 0.5;
+}
+
+p {
+    font-size: 10px;
+}
+
+ul {
+    padding-top: 10px;
+    width: 550px;
+    justify-content: space-between;
+    list-style-type: none;
+    display: flex;
+    color: white;
+}
+
+[id="btnMybooking"]:hover {
+    text-shadow: 0px 0px 30px #ffffff;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+
+[id="btnMymail"]:hover {
+    text-shadow: 0px 0px 30px #ffffff;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+
+[id="btnHOME"]:hover {
+    text-shadow: 0px 0px 30px #ffffff;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    size: 110%;
+}
+
+.vl {
+    border-left: 3px solid;
+    border-image: linear-gradient(180deg, rgb(14, 14, 218), rgba(0, 212, 255, 1)) 1;
+    height: 165px;
+}
+
+.dot1 {
+    height: 6px;
+    width: 6px;
+    background-color: rgb(14, 14, 218);
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 12px;
+    left:178px;
+
+}
+
+.dot2 {
+    height: 6px;
+    width: 6px;
+    background-color: rgba(0, 212, 255, 1);
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 180px;
+    left:178px;
+}

@@ -1,0 +1,72 @@
+{% extends 'components/site_base.html' %}
+
+{% block title %}Ticket Report{% endblock %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-sm'>
+    Ticket ID: {{ ticket.ticket_id }}<br>
+    </div>
+    <div class='col-sm'>
+    Flight ID: {{ticket.flight_id }}<br>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm'>
+    Username: {{ ticket.username }}<br>
+    </div>
+    <div class='col-sm'>
+    Booking Date: {{ ticket.booking_date }}<br>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm'>
+    Seat Class: {{ ticket.seat_class }}<br>
+    </div>
+    <div class='col-sm'>
+    Airline: {{ flight_detail.airline }}<br>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm'>
+    Departure : {{ ticket.departure_date }} {{ flight_detail.departure_time }} <br>
+    </div>
+    <div class='col-sm'>
+    Departure Airport : {{ departure.airport }} {{ departure.city_id }} <br>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm'>
+    Destination : {{ flight_detail.arrival_date }} {{ flight_detail.arrival_time }} <br>
+    </div>
+    <div class='col-sm'>
+    Destination Airport : {{ destination.airport }} {{ destination.city_id }} <br>
+    </div>
+</div>
+<table class='table'>
+    <tr>
+        <th>#</th>
+        <th>ID No</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+    </tr>
+{% for lineitem in passenger %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ lineitem.id_no }}</td>
+        <td>{{ lineitem.first_name }}</td>
+        <td>{{ lineitem.last_name }}</td>
+        <td>{{ lineitem.email }}</td>
+        <td>{{ lineitem.phone_no }}</td>
+    <tr>
+{% endfor %}
+
+<tr>
+    <td colspan='4'></td>
+<td align='right'></br>Total Amount</td><td align='right'></br>{{ ticket.total_amount }}</td>
+</tr>
+</tr>
+</table>
+{% endblock %}

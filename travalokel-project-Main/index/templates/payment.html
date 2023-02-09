@@ -1,0 +1,138 @@
+{% extends 'components/site_base.html' %}
+{% load static %}
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+
+<body class="bg">
+    {% include 'components/site_header.html' %}
+    <div class="mx-auto text-bg-light p-3 shadow p-3 mb-5 bg-body rounded" style="width: 1024px;">
+        <form action="completedpayment" method="post">
+            <input type='hidden' id='username' name="username" value="{{ user.username }}">
+            {% csrf_token %}
+            <h2 align="center">Payment Information</h2>
+            <div class="card">
+                <div class="card-header">Pay with card</div>
+                <div class="row col2">
+                    <div class="ticket_id col-2 ">
+                        <label class="mx-2">TICKET ID</label><br>
+                        <input class="form-control mx-2" type="text" name="ticket_id" value=" {{ticket_id}}" readonly>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="amount col-2">
+                        <label>TICKET PRICE</label><br>
+                        <input class="form-control" type='text' id='js_Amount' name='amount' value=" ฿ {{total_amount}}"
+                            readonly>
+                    </div>
+                </div>
+                <div class="creditcard col-4 mx-2"><br>
+                    <label>Credit Card Number<span>*</span></label><br>
+                    <input class="form-control " type="tel" pattern="[0-9]*" name="card_no" id="cardNo"
+                        autocomplete="off" maxlength="19" placeholder="Enter card number" title="Fill card number again"
+                        required><br>
+                    <label>Credit Card Holder's Name<span>*</span></label><br>
+                    <input class="form-control" type="text" name="card_name" id="cardName" placeholder="Enter name"
+                        pattern="[A-Za-z]{1,20}" title="Fill holder's name again" required>
+                </div>
+                <div class="expire-date mx-2">
+                    <label>Expiration Date<span>*</span></label><br>
+                    <div class="row">
+                        <div class="col-2">
+                            <select name="expMonth" id="expiry_month" class="form-control" required>
+                                <option value="default">Month</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select name="expYear" id="expiry_year" class="form-control" required>
+                                <option value="">Year</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                                <option value="2031">2031</option>
+                                <option value="2032">2032</option>
+                                <option value="2033">2033</option>
+                                <option value="2034">2034</option>
+                                <option value="2035">2035</option>
+                                <option value="2036">2036</option>
+                                <option value="2037">2037</option>
+                                <option value="2038">2038</option>
+                                <option value="2039">2039</option>
+                                <option value="2040">2040</option>
+                                <option value="2041">2041</option>
+                                <option value="2042">2042</option>
+                                <option value="2043">2043</option>
+                                <option value="2044">2044</option>
+                                <option value="2045">2045</option>
+                                <option value="2046">2046</option>
+                                <option value="2047">2047</option>
+                                <option value="2048">2048</option>
+                                <option value="2049">2049</option>
+                                <option value="2050">2050</option>
+                                <option value="2051">2051</option>
+                                <option value="2052">2052</option>
+                                <option value="2053">2053</option>
+                                <option value="2054">2054</option>
+                                <option value="2055">2055</option>
+                                <option value="2056">2056</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <label>CVV Number<span>*</span></label><br>
+                            <input class="form-control" type="password" name="cvv_no" pattern="[0-9]{3}"
+                                title="Invalid CVV Number" placeholder="Enter CVV" required>
+                        </div>
+                        <div class="button">
+                            <a href="mybooking" class="cancle" id="btnCancle">CANCLE</a>
+                            <button type="submit" value="confirm" class="confirm" id="btnConfirm">
+                                CONFIRM
+                            </button>
+                        </div>
+                        <div class="hidden">
+                            <input type="hidden" name="ticket_id" value="{{ticket_id}}" readonly>
+                        </div>
+        </form>
+    </div></div></div></div><br>
+    <div class="text-center">
+        <p style="font-size: 100%;">**กดปุ่มวิธีการใช้งานเพื่อดูขั้นตอนการจ่ายเงิน**</p>
+        <!-- Button to launch a modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#exampleModal">วิธีการใช้งาน</button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Add image inside the body of modal -->
+                <div class="modal-body text-center">
+                    <img id="image" src="static/img/img03.png" alt="Click on button"
+                        style="width:120%;max-width:1000px" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

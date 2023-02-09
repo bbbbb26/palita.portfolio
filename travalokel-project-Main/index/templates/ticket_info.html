@@ -1,0 +1,123 @@
+{% extends 'components/site_base.html' %}
+{% load static %}
+{% block title %}ฺBooking ticket{% endblock %}
+{% block head%}
+<script type="text/javascript" src="{% static 'js/book-info.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/book.css' %}">
+
+{% endblock%}
+{% block content %}
+
+<body style="background-color:#BCE6FF;">
+<form action="/payment" method="POST">  
+    {% include 'components/site_header.html' %}
+    {% csrf_token %}
+    <br>
+    <div class="grid-container">
+        <div class="grid-item"></div>
+        <div class="grid-item"></div>
+        <div class="grid-item">
+            <div class="col-sm-5">
+            <h3>การจองของคุณ</h3><br>
+            <h6>กรอกข้อมูลและตรวจสอบการจอง</h6>
+            <div class="card" style="width:550px;height:123px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2"><span id="boot-icon" class="bi bi-people-fill" style="font-size: 57px; color: rgb(66, 133, 244);"></span></div>
+                            <div class="col-10">
+                                <div class="row">เข้าสู่ระบบ หรือ สมัครสมาชิก เพื่อรับสิทธิพิเศษสำหรับสมาชิกเท่านั้น</div>
+                                <div class="row">จองได้สะดวกและรวดเร็วขึ้นด้วยฟีเจอร์ Passenger Quick Pick</div>
+                                <div class="row " style="color:rgb(66, 133, 244);font-weight: bold;" align="left"><a href="/users/login">เข้าสู่ระบบ หรือ สมัครสมาชิก</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                <h3>รายละเอียดการติดต่อ</h3>
+            <div class="card" style="width: 550px;height: 250px;">
+                <div class="card-header">ข้อมูลติดต่อ (สำหรับส่งตั๋ว/ใบจอง)</div>
+                <div class="card-body">
+                    <div class="form-field">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="First_name" class="form-label">ชื่อจริงและชื่อกลาง</label>
+                                <input type="text" class="form-control" name="First_name" aria-label="First name">
+                            </div>
+                            <div class="col-6">
+                                <label for="Last_name" class="form-label">นามสกุล</label>
+                                <input type="text" class="form-control" name="Last_name" aria-label="Last name">
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="phonenumber" class="form-label">หมายเลขโทรศัพท์มือถือ</label>
+                                <input type="tel" class="form-control" name="phonenumber" aria-label="First name">
+                            </div>
+                            <div class="col-6">
+                                <label for="email" class="form-label">อีเมล์</label>
+                                <input type="email" class="form-control" name="email" aria-label="Last name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div></div>
+
+
+
+
+
+
+            <div class="grid-item"><br><br><br><br>
+                <div class="card" style="width:330px;height:300px;">
+                <h5 class="card-header"><span id="info-departure"></span><i class="bi bi-arrow-right"></i><span id="info-destination"></span></h5>
+                <div class="card-body">
+                    <h6>ขาไป <span id="info-departure_date"></span></h6>
+                    <h5 id="airline"></h5>
+                    <div class="row justify-content-space-between p-1 rounded">
+                        <div class="col-4" align="center">
+                            <p class="fs-6" id="info-departure_time"></p>
+                            <p class="fs-6" id="info-departure2"></p>
+                        </div>
+                        <div class="col-4" align="center"><span id="info-duration"></span>
+                            <br>
+                        <span id="boot-icon" class="bi bi-three-dots" style="font-size:2rem;"></span>
+                            </div>
+                        <div class="col-4" align="center">
+                            <p class="fs-6" id="info-arrival_time"></p>
+                            <p class="fs-6" id="info-destination2"></p>
+                        </div>
+                </div>
+            </div><br><br><br><br>
+            <button type="submit" class="btn btn-primary">ดำเนินการต่อ</button>
+        </div>
+    </div>
+    <input type='hidden' id='flight_id' name="flight_id" value="">
+    <input type='hidden' id='seat_class' name="seat_class" value="">
+    <input type='hidden' id='total_amount' name="total_amount" value="">
+    <input type='hidden' id='booking_date' name="booking_date" value="">
+    <input type='hidden' id='departure_date' name="departure_date" value="">
+    <input type='hidden' id='username' name="username" value="{{ user.username }}">
+    
+</form> 
+</div><br>
+<div class="text-center">
+  <p style="font-size: 100%;">**กดปุ่มวิธีการใช้งานเพื่อดูขั้นตอนการจองตั๋วเครื่องบิน**</p>
+  <!-- Button to launch a modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">วิธีการใช้งาน</button>
+</div>
+<!-- Modal -->
+<div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">         
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Add image inside the body of modal -->
+            <div class="modal-body text-center">
+                <img id="image" src= "{% static "/img/img04.png" %}" alt="Click on button" style="width:120%;max-width:1000px" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

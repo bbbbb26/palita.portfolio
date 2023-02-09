@@ -1,0 +1,10 @@
+/travarokel_project/__pycache__
+/index/__pycache__
+/index/migrations/__pycache__
+
+/app_users/__pycache__
+/app_users/migrations/__pycache__
+/travarokel_project/settings.py
+.pyc
+*.pyc
+travarokel_project/settings.py

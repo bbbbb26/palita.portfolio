@@ -1,0 +1,170 @@
+{% extends 'components/site_base.html' %}
+{% load static %}
+{% block title %}My Booking{% endblock %}
+{% block head%}
+<script type="text/javascript" src="{% static 'js/mybooking.js' %}"></script>
+{% endblock%}
+
+{% block content %}
+<body class="bg">
+    
+    {% include 'components/site_header.html' %}
+    <div class="mx-auto text-bg-light p-3 shadow p-3 mb-5 bg-body rounded" style="width: 1024px;">
+    {% for ticket in tickets %}
+    <div class="card">
+        <div class="card-header"><b>{{ticket.ticket_id}}</b></div>
+            <div class="card-body">
+                <div class="row each-booking-div" id="{{ticket.ticket_id}}">
+                    <div class="col-2" style="display: flex; justify-content: right">
+                        <div style="display: flex; color: #666666; margin-top: auto;">
+                            <div>
+                                <span style="font-size: 2em;">{{ticket.departure_date | date:"d"}}</span>
+                            </div>
+                            <div style="font-size: smaller; display: flex; margin: auto 0; padding-left: 5px; line-height: 1em;">
+                                <div style="margin: auto;">
+                                    <div style="margin-bottom: 1px;">{{ticket.departure_date | date:"D"}}</div>
+                                    <div style="margin-top: 1px;">{{ticket.departure_date | date:"M'y"}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="width:100%">
+                        <div class="row text-black-50 justify-content-center" style=" display: flex;">
+                            <div style="font-size: 12px; text-align: right">Flight ID</div>
+                            <div style="text-align: right">{{ticket.flight_id}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 middle-div"></div>
+                <div class="col-2 middle-div">
+                    <div style="font-size: 1.2em; color: #666666;">{{ticket.ticket_id}}</div>
+                </div>
+                <div class="col-2 middle-div">
+                    <div>
+                        <div class="row status-div">
+                            {% if ticket.status == 'COMPLETED' %}
+                            <div class="green" style="font-size: 1.2em;" align="center">{{ticket.status}}</div>
+                            {% endif %}
+                            {% if ticket.status == 'PENDING' %}
+                            <div class="orange" style="font-size: 1.2em;">{{ticket.status}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="row booking-date-div" style="font-size: .7em; color: #666;">
+                            {% if ticket.status == 'PENDING' %}
+                            Booking date on: {{ticket.booking_date | date:"D, M d Y"}}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2" align="right" style="font-size:32px ;">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </div>
+            </div><br>
+                    <div class="row">
+                        {% if ticket.status == 'COMPLETED' %}
+                        <div class="col-auto">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="ticket_id" id="txt_ticketID" value="{{ticket.ticket_id}}">
+                            <button type="submit" class="btn btn-primary btnp" id="btnPrint">Print Receipt</button>
+                        </form>
+                        </div>
+                        <div class="col-auto">
+                            <form method="POST" action="ticket/print">
+                                {% csrf_token %}
+                                <input type="hidden" name="ticket_id" id="txt_ticketID" value="{{ticket.ticket_id}}">
+                                <button type="submit" class="btn btn-primary btnp" id="btnPrint">Print Ticket</button></div>
+                            </form>
+                        <div class="col-auto" >
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Cancel Ticket</button>
+                            <!---------------------------------------------------------MODAL--------------------------------------------------------->
+                            <div class="modal" tabindex="-1" id="DeleteModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" align="center">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Cancle Ticket</h5>
+                                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <i class="bi bi-exclamation-circle" style="font-size:104px;color: #ffc107;"></i><br>
+                                            <h3 style="color: gray;"><b> Are you sure? </b></h3>
+                                            <span>You will not be able to recover this Ticket!</span><br><br>
+                                                <form action="cancelticket" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="ticket_id" id="txt_ticketID" value="{{ticket.ticket_id}}">
+                                                        <div class="row" style="justify-content: center;">
+                                                        <div class="col-6"><button type="submit" class="btn btn-success btnp" name="ticket_id" value="{{ticket.ticket_id}}">Yes, Cancel it!</button></div>
+                                                        <div class="col-6"><button class="btn btn-danger" data-dismiss="modal">No, Dont do that!</button></div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---------------------------------------------------------MODAL--------------------------------------------------------->
+                        </div>
+                        {% endif %}
+                        {% if ticket.status == 'PENDING' %}
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Cancel Ticket</button>
+                            <!---------------------------------------------------------MODAL--------------------------------------------------------->
+                            <div class="modal" tabindex="-1" id="DeleteModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" align="center">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Cancle Ticket</h5>
+                                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <i class="bi bi-exclamation-circle" style="font-size:104px;color: #ffc107;"></i><br>
+                                            <h3 style="color: gray;"><b> Are you sure? </b></h3>
+                                            <span>You will not be able to recover this Ticket!</span><br><br>
+                                                <form action="cancelticket" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="ticket_id" id="txt_ticketID" value="{{ticket.ticket_id}}">
+                                                        <div class="row" style="justify-content: center;">
+                                                        <div class="col-6"><button type="submit" class="btn btn-success btnp" name="ticket_id" value="{{ticket.ticket_id}}">Yes, Cancel it!</button></div>
+                                                        <div class="col-6"><button class="btn btn-danger" data-dismiss="modal">No, Dont do that!</button></div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---------------------------------------------------------MODAL--------------------------------------------------------->
+                        </div>
+                        {% endif %}
+            </div>
+        </div>
+        <br>
+{% endfor %}
+    </div>
+</div>
+
+<div class="text-center">
+    <p style="font-size: 100%;">**กดปุ่มวิธีการใช้งานเพื่อดูขั้นตอนการใช้งานหน้าการจองของฉัน**</p>
+    <!-- Button to launch a modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">วิธีการใช้งาน</button>
+</div>
+<!-- Modal -->
+<div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">         
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Add image inside the body of modal -->
+            <div class="modal-body text-center">
+                <img id="image" src="static/img/img5.png" alt="Click on button" style="width:120%;max-width:1000px" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+{% endblock %}
+
+

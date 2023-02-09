@@ -1,0 +1,99 @@
+{% extends 'components/site_base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block head%}
+<link rel="stylesheet" type="text/css" href="{% static 'css/clound.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<body class="bg">
+  {% include 'components/site_header.html' %}
+      <br><br><br>
+      <div class="mx-auto text-bg-light p-3 shadow p-3 mb-5 bg-body rounded" style="width: 1024px; height: 400px; ">
+        <span class="text-center d-block p-2 text-bg-primary">ค้นหาเที่ยวบิน</span><br><br>
+        <form class="row g-3 needs-validation" novalidate>
+
+            <div class="form-floating col-md-6" method="post">
+                <select class="form-select" id="select_start" aria-label="Select departure Airport">
+                    <option selected value="Select Airport"></option>
+                    <option value="DMK">Bangkok     </option>
+                    <option value="CNX">Chiang Mai  </option>
+                    <option value="CEI">Chiang Rai  </option>
+                    <option value="BKK">SamutPrakan </option>
+                    <option value="HDY">Songkhla    </option>
+                    <option value="HKT">Phuket      </option>
+                  </select>
+                  <label for="floatingSelect">จาก</label>
+            </div>
+            <div class="form-floating col-md-6" method="post">
+              <select class="form-select" id="select_goal" aria-label="Select destination Airport">
+                <option selected value="Select destination"></option>
+                <option value="DMK">Bangkok     </option>
+                <option value="CNX">Chiang Mai  </option>
+                <option value="CEI">Chiang Rai  </option>
+                <option value="BKK">SamutPrakan </option>
+                <option value="HDY">Songkhla    </option>
+                <option value="HKT">Phuket      </option>
+              </select>
+              <label for="floatingSelect">จุดหมายปลายทาง</label>
+            </div>
+            <div class='col col-lg-4 col-md-8 col-12 col-auto'>
+              <div class='input-group mb-2' style="height:50px ;">
+                <input type='text' id='txt_flightDate' class='form-control' placeholder='ระบุบวันเดินทาง' required aria-label="Select departure date">
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="form-floating col-md-4">
+              <select class="form-select" id="FlightType" aria-label="Select passenger class">
+                <option selected value="" >เลือกประเภทเที่ยวบิน</option>
+                <option value="Business"  >Business Class</option>
+                <option value="Economy"   >Economy  Class</option>
+              </select>
+            <label for="floatingSelect">ชั้นโดยสาร</label>
+            </div>
+
+            <div class="col-12"></div>
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-warning" type="submit" id="btnfindflight" aria-label="Search flight">ค้นหาเที่ยวบิน</button>
+            </div>
+          </form>
+      </div>
+      <div class="text-center">
+        <p style="font-size: 100%;">**กดปุ่มวิธีการค้นหาเพื่อดูขั้นตอนการค้นหาเที่ยวบิน**</p>
+        <!-- Button to launch a modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">วิธีการค้นหา</button>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">         
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Add image inside the body of modal -->
+                <div class="modal-body text-center">
+                    <img id="image" src="static/img/img01.png" alt="Click on button" style="width:120%;max-width:1000px" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+      </div> 
+      <div class="scene">
+        <span class="cloud cloud--small"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" id="plane" class="plane" viewBox="0 0 104 47" x="0" y="0" width="104" height="47" background-color="#ffffff00">
+          <g id="avion">
+            <path d="M20 36C25 38 69 43 80 40 92 38 106 33 104 21 103 13 95 13 90 9 85 5 79 2 76 1 70-1 65 0 60 2 57 3 25 14 23 13 21 12 12 2 9 3 5 4 1 5 1 6 2 7 15 34 20 36Z" fill="#0085b2"/>
+            <path d="M23 36C28 37 69 43 80 40 88 38 98 34 102 29 82 32 22 36 23 36Z" stroke="#ffffff00" stroke-width="1" fill="#14647f"/>
+            <path d="M42 39C48 40 60 40 67 40 71 32 72 26 72 26L44 29C44 29 44 35 42 39Z" stroke="#ffffff00" stroke-width="1" fill="#0c3b4d"/>
+            <path d="M7 16C7 16 9 20 10 22 13 27 16 13 16 13L7 16Z" stroke="#ffffff00" stroke-width="1" fill="#0c3b4d"/>
+            <path d="M40 29C40 29 41 34 34 42 27 51 48 46 58 39 74 28 72 25 72 25L40 29Z" stroke="#ffffff00" stroke-width="1" fill="#006e96"/>
+            <path d="M5 14C5 14 6 15 3 19 1 22 10 20 13 17 19 11 17 11 17 11L5 14Z" stroke="#ffffff00" stroke-width="1" fill="#006e96"/>
+            <path d="M90 10C88 8 83 4 80 3 78 3 68 7 68 8 70 12 80 8 90 10Z" stroke="#ffffff00" stroke-width="1" fill="#0c3b4d"/>
+            <path d="M89 9C87 7 82 3 79 2 77 2 67 6 67 7 69 11 79 7 89 9Z" stroke="#ffffff00" stroke-width="1" fill="#afe2ff"/>
+          </g>
+        </svg>
+        <span class="cloud cloud--medium"></span>
+        <span class="cloud cloud--large"></span>
+      </div>
+      <!-- Adding scripts to use bootstrap -->
+</body>
+{% endblock %}
